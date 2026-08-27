@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonal's Billing Desk</title>
+</head>
+<body>
+
+    <script>
+        // Header display
+        document.write("<h2>Sonal's Billing Desk</h2>");
+        document.write("<h3>Billing Receipt</h3>");
+
+        // Accepting user input using prompt() and converting numbers using Number()
+        var productName = prompt("Enter Product Name:", "Item");
+        let quantity = Number(prompt("Enter Quantity:", "1"));
+        const price = Number(prompt("Enter Price per Item:", "20"));
+
+        // Calculating subtotal
+        let total = quantity * price;
+
+        // Creating an object to store billing details
+        const billDetails = {
+            item: productName,
+            qty: quantity,
+            rate: price,
+            subtotal: total,
+            gstRate: 0.18, // 18% GST
+            get gstAmount() {
+                return this.subtotal * this.gstRate;
+            },
+            get finalBill() {
+                return this.subtotal + this.gstAmount;
+            }
+        };
+
+        // Object Destructuring
+        const { item, qty, rate, subtotal, gstAmount, finalBill } = billDetails;
+
+        // Displaying output using template literals (``) and document.write()
+        document.write(`<p><strong>Product:</strong> ${item}</p>`);
+        document.write(`<p><strong>Quantity:</strong> ${qty}</p>`);
+        document.write(`<p><strong>Price per item:</strong> ${rate}</p>`);
+        document.write(`<p><strong>Total:</strong> ${subtotal}</p>`);
+        document.write(`<p><strong>GST (18%):</strong> ₹${gstAmount.toFixed(2)}</p>`);
+        document.write(`<p><strong>Final Bill:</strong> ₹${finalBill.toFixed(2)}</p>`);
+    </script>
+
+</body>
+</html>
