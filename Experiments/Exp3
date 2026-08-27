@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grading System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        .container {
+            max-width: 400px;
+        }
+        input, button {
+            margin-top: 10px;
+            padding: 8px;
+            display: block;
+        }
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header matching your output screen -->
+        <h2>Sonal's Student Grading System (24070521199):</h2>
+        
+        <label for="marks">Enter Marks:</label>
+        <input type="text" id="marks" placeholder="Enter marks (0-100)">
+        
+        <button onclick="calculateGrade()">Submit</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateGrade() {
+            // DOM Manipulation: Reading input value
+            let marksInput = document.getElementById('marks').value.trim();
+            let resultDiv = document.getElementById('result');
+
+            // Form Validation: Empty check
+            if (marksInput === "") {
+                resultDiv.innerText = "Please enter marks.";
+                resultDiv.style.color = "red";
+                return;
+            }
+
+            let marks = Number(marksInput);
+
+            // Form Validation: Type check using isNaN() and Range check (0-100)
+            if (isNaN(marks) || marks < 0 || marks > 100) {
+                resultDiv.innerText = "Invalid Input! Please enter a number between 0 and 100.";
+                resultDiv.style.color = "red";
+                return;
+            }
+
+            let grade = "";
+
+            // Control Structures: Mapping marks to grades
+            if (marks >= 90) {
+                grade = "A";
+            } else if (marks >= 80) {
+                grade = "B";
+            } else if (marks >= 70) {
+                grade = "C";
+            } else if (marks >= 60) {
+                grade = "D";
+            } else if (marks >= 35) {
+                grade = "E";
+            } else {
+                grade = "F (Fail)";
+            }
+
+            // DOM Manipulation: Displaying output matching the screenshot layout
+            resultDiv.style.color = "black";
+            resultDiv.innerHTML = `Marks: ${marks}<br>Grade: ${grade}`;
+        }
+    </script>
+
+</body>
+</html>
