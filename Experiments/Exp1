@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Experiment 1</title>
+</head>
+<body>
+
+    <h2>JavaScript Experiment 1</h2>
+
+    <!-- Inline JavaScript -->
+    <h3>Inline JavaScript (Welcome)</h3>
+    <button onclick="alert('WELCOME TO SYMBIOSIS INSTITUTE OF TECHNOLOGY!')">
+        Click to Welcome
+    </button>
+    <p><strong>WELCOME TO SYMBIOSIS INSTITUTE OF TECHNOLOGY!</strong></p>
+
+    <!-- Internal JavaScript -->
+    <h3>Internal JavaScript (Info)</h3>
+    <div id="student-info"></div>
+
+    <h3>External JavaScript: Open Console to see console method outputs</h3>
+
+    <!-- Internal JavaScript Implementation -->
+    <script>
+        // Displaying User Info using Internal JS
+        let name = "Sonal Nakhate";
+        let prn = "24070521199";
+        let branch = "CSE";
+        let year = "Third Year";
+
+        document.getElementById("student-info").innerHTML = `
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>PRN:</strong> ${prn}</p>
+            <p><strong>Branch:</strong> ${branch}</p>
+            <p><strong>Year:</strong> ${year}</p>
+        `;
+    </script>
+
+    <!-- Linking External JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
