@@ -1,21 +1,21 @@
 // Palindrome Checker
-// Name: Sonal Nakhate PRN: 24070521199
+// Name: Sohal Nakhate PRN: 24070521199
 // Scope, closure, error handling using try-catch
 
 // Create anonymous Function without a Name
 let welcome = function() {
-    console.log("Palindrome Checker Program.");[cite: 1]
+    console.log("Palindrome Checker Program.");
 };
 
-welcome();[cite: 1]
+welcome();
 
 // Global Variable
-let language = "JavaScript";[cite: 1]
+let language = "JavaScript";
 
 function scopeDemo() {
-    // Local Variable[cite: 1]
-    let topic = "Functions";[cite: 1]
-    console.log("Language:", language); // Display global var[cite: 1]
+    // Local Variabl
+    let topic = "Functions";
+    console.log("Language:", language);
     console.log("Topic:", topic);
 }
 
