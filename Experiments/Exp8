@@ -1,0 +1,115 @@
+<!-- Sonal Nakhate 24070521199 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gym Admission Form</title>
+  <style>
+    body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 40px; background: #f9f9f9; }
+    form { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); width: 300px; }
+    .field { margin-bottom: 12px; }
+    label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px; }
+    input, select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+    .error { color: red; font-size: 11px; margin-top: 2px; }
+    .valid-border { border-color: green; }
+    .invalid-border { border-color: red; }
+    button { width: 100%; padding: 10px; background: #28a745; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<form id="gymForm">
+  <h2>Gym Admission</h2>
+
+  <div class="field">
+    <label for="fullName">Full Name</label>
+    <input type="text" id="fullName" placeholder="Enter name">
+    <div class="error" id="nameErr"></div>
+  </div>
+
+  <div class="field">
+    <label for="email">Email</label>
+    <input type="text" id="email" placeholder="name@domain.com">
+    <div class="error" id="emailErr"></div>
+  </div>
+
+  <div class="field">
+    <label for="mobile">Mobile Number</label>
+    <input type="text" id="mobile" placeholder="10-digit number">
+    <div class="error" id="mobileErr"></div>
+  </div>
+
+  <div class="field">
+    <label for="age">Age (18-50)</label>
+    <input type="number" id="age" placeholder="Age">
+    <div class="error" id="ageErr"></div>
+  </div>
+
+  <div class="field">
+    <label for="plan">Membership Plan</label>
+    <select id="plan">
+      <option value="">Select Plan</option>
+      <option value="quarterly">Quarterly</option>
+      <option value="half-yearly">Half Yearly</option>
+      <option value="annually">Annually</option>
+    </select>
+    <div class="error" id="planErr"></div>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  // DOM References
+  const form = document.getElementById('gymForm');
+  const fullName = document.getElementById('fullName');
+  const email = document.getElementById('email');
+  const mobile = document.getElementById('mobile');
+  const age = document.getElementById('age');
+  const plan = document.getElementById('plan');
+
+  // Unified validation UI updater
+  function validate(input, errorEl, isValid, message) {
+    if (isValid) {
+      input.className = 'valid-border';
+      errorEl.textContent = '';
+      return true;
+    } else {
+      input.className = 'invalid-border';
+      errorEl.textContent = message;
+      return false;
+    }
+  }
+
+  // Field Validation Rules
+  const checkName = () => validate(fullName, document.getElementById('nameErr'), fullName.value.trim().length >= 3, 'Minimum 3 characters required');
+  const checkEmail = () => validate(email, document.getElementById('emailErr'), /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()), 'Enter a valid email address');
+  const checkMobile = () => validate(mobile, document.getElementById('mobileErr'), /^[0-9]{10}$/.test(mobile.value.trim()), 'Enter a valid 10-digit number');
+  const checkAge = () => {
+    const val = parseInt(age.value, 10);
+    return validate(age, document.getElementById('ageErr'), val >= 18 && val <= 50, 'Age must be between 18 and 50');
+  };
+  const checkPlan = () => validate(plan, document.getElementById('planErr'), plan.value !== '', 'Please choose a plan');
+
+  // Event Listeners for Live Feedback
+  fullName.addEventListener('input', checkName);
+  email.addEventListener('input', checkEmail);
+  mobile.addEventListener('input', checkMobile);
+  age.addEventListener('input', checkAge);
+  plan.addEventListener('change', checkPlan);
+
+  // Form Submission
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const valid = checkName() & checkEmail() & checkMobile() & checkAge() & checkPlan();
+    
+    if (valid) {
+      alert('Form submitted successfully!');
+      form.reset();
+      [fullName, email, mobile, age, plan].forEach(el => el.className = '');
+    }
+  });
+</script>
+
+</body>
+</html>
