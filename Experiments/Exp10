@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>JSON & Hardcoded Data Table</title>
+  <title>JSON Data Table</title>
   <!-- Load jQuery library -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
@@ -14,14 +14,14 @@
 
   <h2>User Directory</h2>
 
-  <!-- Buttons to load external JSON -->
-  <button onclick="loadWithFetch()">Load External via fetch()</button>
-  <button id="btnJQuery">Load External via $.getJSON()</button>
-  <button onclick="renderTable(localRecords)">Reset to Hardcoded Data</button>
+  <!-- Buttons to trigger data fetching -->
+  <button onclick="loadWithFetch()">Load via fetch()</button>
+  <button id="btnJQuery">Load via $.getJSON()</button>
+  <button onclick="clearTable()">Clear Table</button>
 
   <br><br>
 
-  <!-- Table to display results -->
+  <!-- Table (starts blank) -->
   <table>
     <thead>
       <tr>
@@ -31,24 +31,22 @@
       </tr>
     </thead>
     <tbody id="userTable">
-      <!-- Data rows inserted here -->
+      <!-- Starts empty until a button is clicked -->
     </tbody>
   </table>
 
   <script>
-    // 1. ADD YOUR RECORDS HERE DIRECTLY IN THE CODE
-    const localRecords = [
-      { id: 24070521199, name: "Sonal Nakhate", email: "abc@xyz.com" },
-      { id: 24070521100, name: "Bob Jones", email: "abc@def.com" },
-      { id: 24070521101, name: "Charlie Brown", email: "ghi@jkl.com" }
+    // Hardcoded JSON records defined directly in the code
+    const myData = [
+      { id: 1, name: "Alice Smith", email: "alice@example.com" },
+      { id: 2, name: "Bob Jones", email: "bob@example.com" },
+      { id: 3, name: "Charlie Brown", email: "charlie@example.com" }
     ];
 
-    const externalApiUrl = 'https://jsonplaceholder.typicode.com/users';
-
-    // Helper function to draw table rows
+    // Function to render records into the table
     function renderTable(data) {
       const tbody = document.getElementById('userTable');
-      tbody.innerHTML = ''; // Clear previous rows
+      tbody.innerHTML = ''; // Clear existing rows
 
       data.forEach(user => {
         const row = `<tr>
@@ -60,25 +58,22 @@
       });
     }
 
-    // Load external data using vanilla JavaScript fetch()
-    function loadWithFetch() {
-      fetch(externalApiUrl)
-        .then(response => response.json())
-        .then(data => renderTable(data))
-        .catch(error => console.error('Error fetching data:', error));
+    // Function to clear the table
+    function clearTable() {
+      document.getElementById('userTable').innerHTML = '';
     }
 
-    // Load external data using jQuery $.getJSON()
-    $(document).ready(function() {
-      // DISPLAY HARDCODED RECORDS IMMEDIATELY WHEN PAGE LOADS
-      renderTable(localRecords);
+    // 1. Load using Vanilla JS fetch()
+    function loadWithFetch() {
+      // Simulating fetch by creating a response Promise from local JSON data
+      Promise.resolve(myData)
+        .then(data => renderTable(data));
+    }
 
-      $('#btnJQuery').click(function() {
-        $.getJSON(externalApiUrl, function(data) {
-          renderTable(data);
-        }).fail(function(error) {
-          console.error('Error fetching data:', error);
-        });
+    // 2. Load using jQuery $.getJSON() equivalent
+    $(document).ready(function() {$('#btnJQuery').click(function() {
+        // Render data on button click
+        renderTable(myData);
       });
     });
   </script>
