@@ -1,0 +1,87 @@
+<!-- Sonal Nakhate 24070521199 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSON & Hardcoded Data Table</title>
+  <!-- Load jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+  </style>
+</head>
+<body>
+
+  <h2>User Directory</h2>
+
+  <!-- Buttons to load external JSON -->
+  <button onclick="loadWithFetch()">Load External via fetch()</button>
+  <button id="btnJQuery">Load External via $.getJSON()</button>
+  <button onclick="renderTable(localRecords)">Reset to Hardcoded Data</button>
+
+  <br><br>
+
+  <!-- Table to display results -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="userTable">
+      <!-- Data rows inserted here -->
+    </tbody>
+  </table>
+
+  <script>
+    // 1. ADD YOUR RECORDS HERE DIRECTLY IN THE CODE
+    const localRecords = [
+      { id: 24070521199, name: "Sonal Nakhate", email: "abc@xyz.com" },
+      { id: 24070521100, name: "Bob Jones", email: "abc@def.com" },
+      { id: 24070521101, name: "Charlie Brown", email: "ghi@jkl.com" }
+    ];
+
+    const externalApiUrl = 'https://jsonplaceholder.typicode.com/users';
+
+    // Helper function to draw table rows
+    function renderTable(data) {
+      const tbody = document.getElementById('userTable');
+      tbody.innerHTML = ''; // Clear previous rows
+
+      data.forEach(user => {
+        const row = `<tr>
+          <td>${user.id}</td>
+          <td>${user.name}</td>
+          <td>${user.email}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
+    // Load external data using vanilla JavaScript fetch()
+    function loadWithFetch() {
+      fetch(externalApiUrl)
+        .then(response => response.json())
+        .then(data => renderTable(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }
+
+    // Load external data using jQuery $.getJSON()
+    $(document).ready(function() {
+      // DISPLAY HARDCODED RECORDS IMMEDIATELY WHEN PAGE LOADS
+      renderTable(localRecords);
+
+      $('#btnJQuery').click(function() {
+        $.getJSON(externalApiUrl, function(data) {
+          renderTable(data);
+        }).fail(function(error) {
+          console.error('Error fetching data:', error);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
