@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown</title>
+</head>
+<body>
+
+  <div id="countdown">10</div>
+
+  <script type="module">
+    class CountdownTimer {
+      constructor(startValue, elementId) {
+        this.count = startValue;
+        this.element = document.getElementById(elementId);
+        this.timerId = null;
+      }
+
+      start() {
+        this.render();
+        this.timerId = setInterval(() => {
+          this.count--;
+          this.render();
+
+          if (this.count <= 0) {
+            clearInterval(this.timerId);
+          }
+        }, 1000);
+      }
+
+      render() {
+        this.element.textContent = this.count;
+      }
+    }
+
+    const timer = new CountdownTimer(10, 'countdown');
+    timer.start();
+  </script>
+
+</body>
+</html>
